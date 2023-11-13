@@ -1,38 +1,36 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-public class UTS {
-    public static void main(String[] args) {
-        List<Integer> checkPoints = new ArrayList<>();
-        int totalDistance = 25;
-        int distancePerCheckPoint = 2;
+public class EventLari {
+  // Metode untuk mengecek apakah suatu angka adalah bilangan prima
+  private static boolean isPrime(int n) {
+      if (n <= 1) {
+          return false;
+      }
+      for (int i = 2; i <= Math.sqrt(n); i++) {
+          if (n % i == 0 ) {
+              return false;
+          }
+      }
+      return true;
+  }
+  public static void main(String[] args) {
+      int totalDistance = 25; // Jarak total dalam kilometer
+      int checkpointInterval = 2; // Interval setiap checkpoint dalam kilometer
 
-        for (int i = 0; i <= totalDistance; i += distancePerCheckPoint) {
-            checkPoints.add(getRandomPrimeNumber());
-        }
+      Random random = new Random();
 
-        System.out.println("Check Points: " + checkPoints);
-    }
+      System.out.println("Nomor Kupon Undian");
 
-    public static int getRandomPrimeNumber() {
-        int randomInt;
-        int MAX_SIZE = 1000000;
-        boolean found;
-        Random rand = new Random();
+      // Interasi setiap 2 kilometer
+      for (int distance = 0; distance <= totalDistance; distance += checkpointInterval) {
+          // Generate angka prima secara acak
+          int randomPrime = 0;
+          do {
+              randomPrime = random.nextInt(100); // Angka prima hingga 100 (anda bisa menyesuaikan bats ini)
+          } while (!isPrime(randomPrime)); // Ulangi jika angka bukan prima
 
-        do {
-            found = true;
-            randomInt = rand.nextInt(MAX_SIZE) + 2; // number 2 or more
-
-            for (int i = 2; i <= Math.sqrt(randomInt); i++) {
-                if (randomInt % i == 0) {
-                    found = false;
-                    break;
-                }
-            }
-        } while (!found);
-
-        return randomInt;
-    }
+          // Tampilan nomor checkpoint dan nilai kupon
+          System.out.println("Checkpoint " + distance + "km: " + randomPrime);
+      }
+  }
 }
